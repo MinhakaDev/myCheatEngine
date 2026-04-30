@@ -22,13 +22,16 @@ class Process
 {
 	private:
 		int pid;
-		std::vector<MemoryRegion> regions;
+		int mem_fd;
 	public:
+	std::vector<MemoryRegion> regions;
 
 	int getId(std::string name);
 
-	std::vector<MemoryRegion> parceMaps();
+	bool parceMaps();
 	std::vector<uint8_t> readMemory(uintptr_t memoryAddr, size_t size);
+	bool writeMemory(uintptr_t memoryAddr,const std::vector<uint8_t>& buffer);
+
 	bool attatch();
 	bool detatch();
 

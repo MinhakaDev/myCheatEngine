@@ -11,7 +11,6 @@
 // retrun all current process names
 void Process::getAllNames()
 {
-	int i = 0;
 	std::string path = "/proc/";
 	for (const auto& proc : std::filesystem::directory_iterator(path)) 
 	{
@@ -24,13 +23,7 @@ void Process::getAllNames()
 						std::string name;
 						if (std::getline(file, name)) {
 							file.close();
-							std::cout << name + "	";
-							if(i == 4)
-							{
-								std::cout << "\n";
-								i = 0;
-							}
-							i++;
+							std::cout << name + "\n";
 						}
 					}
 				}
@@ -57,6 +50,7 @@ int Process::getId(std::string procName)
 							file.close();
 							if (name == procName) {
 								int procId = std::stoi(proc.path().filename().string());
+								Process::pid = procId;
 								return procId;
 							}
 						}
@@ -71,11 +65,11 @@ int Process::getId(std::string procName)
 
 
 //reads the maps file that has the start and end memory of writable memory
-std::vector<MemoryRegion> Process::parceMaps()
+bool Process::parceMaps()
 {
 	std::string path = "/proc/" + std::to_string(pid) + "/maps";
 	std::ifstream file(path);
-	std::vector<MemoryRegion> maps;
+	Process::regions.clear();
 	if (file.is_open()) {
 		std::string line;
 		while(std::getline(file, line)) {
@@ -90,40 +84,48 @@ std::vector<MemoryRegion> Process::parceMaps()
 				MemoryRegion memory;
 				memory.start = std::stoull(start, nullptr, 16);;
 				memory.end = std::stoull(end, nullptr, 16);
-				maps.push_back(memory);
+				Process::regions.push_back(memory);
 				
 			}
 		
 		}
 	}
-	return maps;
+	return true;
 
 }
 
+// attatch to the process so i can read from it syscall
 bool Process::attatch()
 {
 	ptrace(PTRACE_ATTACH,pid,nullptr,nullptr);
 	int status;
 	waitpid(pid, &status , 0);
+	Process::mem_fd = open(("/proc/" + std::to_string(pid) + "/mem").c_str(), O_RDWR);
 	return true;
 }
 
+// detatch from the process to resume it
 bool Process::detatch()
 {
 	ptrace(PTRACE_DETACH,pid,nullptr,nullptr);
-	int status;
-	waitpid(pid,&status,0);
+	close(Process::mem_fd);
 	return true;
 }
 
+// reads from a memoryAddr of until it complete its size
 std::vector<uint8_t> Process::readMemory(uintptr_t memoryAddr, size_t size)
 {
 	std::vector<uint8_t> buffer(size);
-	int mem_fd = open(("/proc/" + std::to_string(pid) + "/mem").c_str(), O_RDWR);
-	pwrite(mem_fd, buffer.data(), size, memoryAddr);
+	pread(mem_fd, buffer.data(), size, memoryAddr);
 	return buffer;
 }
 
+//write to a memoryAddr with a value
+bool Process::writeMemory(uintptr_t memoryAddr,const std::vector<uint8_t>& buffer)
+{
+	pwrite(mem_fd, buffer.data(), buffer.size(), memoryAddr);
+	return true;
+}
 
 
 
