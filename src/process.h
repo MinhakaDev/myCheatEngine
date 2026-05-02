@@ -11,6 +11,7 @@
 #include <sys/ptrace.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <print>
 
 struct MemoryRegion
 {
@@ -26,6 +27,7 @@ class Process
 	public:
 	std::vector<MemoryRegion> regions;
 
+	Process();
 	int getId(std::string name);
 
 	bool parceMaps();

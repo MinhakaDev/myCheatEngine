@@ -8,6 +8,19 @@
 #include <unistd.h>
 #include <vector>
 
+
+// constructor
+Process::Process()
+{
+	getAllNames();
+	std::println("Please Give me the name of the process to connect: ");
+	std::string name;
+	std::cin >> name;
+	getId(name);
+	std::print("connected to the process {} with pid {}", name, Process::pid);
+
+}
+
 // retrun all current process names
 void Process::getAllNames()
 {

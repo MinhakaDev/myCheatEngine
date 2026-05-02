@@ -129,6 +129,30 @@ cheatengine/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cheatengine.dir/build.make CMakeFiles/cheatengine.dir/build
 .PHONY : cheatengine/fast
 
+src/Scanner.o: src/Scanner.cpp.o
+.PHONY : src/Scanner.o
+
+# target to build an object file
+src/Scanner.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cheatengine.dir/build.make CMakeFiles/cheatengine.dir/src/Scanner.cpp.o
+.PHONY : src/Scanner.cpp.o
+
+src/Scanner.i: src/Scanner.cpp.i
+.PHONY : src/Scanner.i
+
+# target to preprocess a source file
+src/Scanner.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cheatengine.dir/build.make CMakeFiles/cheatengine.dir/src/Scanner.cpp.i
+.PHONY : src/Scanner.cpp.i
+
+src/Scanner.s: src/Scanner.cpp.s
+.PHONY : src/Scanner.s
+
+# target to generate assembly for a file
+src/Scanner.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cheatengine.dir/build.make CMakeFiles/cheatengine.dir/src/Scanner.cpp.s
+.PHONY : src/Scanner.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -186,6 +210,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... cheatengine"
+	@echo "... src/Scanner.o"
+	@echo "... src/Scanner.i"
+	@echo "... src/Scanner.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

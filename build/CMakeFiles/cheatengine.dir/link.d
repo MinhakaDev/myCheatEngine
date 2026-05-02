@@ -2,6 +2,7 @@ cheatengine: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/Scrt1.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o \
+  CMakeFiles/cheatengine.dir/src/Scanner.cpp.o \
   CMakeFiles/cheatengine.dir/src/main.cpp.o \
   CMakeFiles/cheatengine.dir/src/process.cpp.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libstdc++.so \
@@ -37,6 +38,8 @@ cheatengine: \
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/crti.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
+
+CMakeFiles/cheatengine.dir/src/Scanner.cpp.o:
 
 CMakeFiles/cheatengine.dir/src/main.cpp.o:
 

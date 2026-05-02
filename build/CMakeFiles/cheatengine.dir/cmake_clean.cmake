@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/cheatengine.dir/link.d"
+  "CMakeFiles/cheatengine.dir/src/Scanner.cpp.o"
+  "CMakeFiles/cheatengine.dir/src/Scanner.cpp.o.d"
   "CMakeFiles/cheatengine.dir/src/main.cpp.o"
   "CMakeFiles/cheatengine.dir/src/main.cpp.o.d"
   "CMakeFiles/cheatengine.dir/src/process.cpp.o"

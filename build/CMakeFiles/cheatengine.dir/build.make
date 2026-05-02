@@ -72,10 +72,24 @@ include CMakeFiles/cheatengine.dir/flags.make
 CMakeFiles/cheatengine.dir/codegen:
 .PHONY : CMakeFiles/cheatengine.dir/codegen
 
+CMakeFiles/cheatengine.dir/src/Scanner.cpp.o: CMakeFiles/cheatengine.dir/flags.make
+CMakeFiles/cheatengine.dir/src/Scanner.cpp.o: /home/minhaka/dev/myCheatEngine/src/Scanner.cpp
+CMakeFiles/cheatengine.dir/src/Scanner.cpp.o: CMakeFiles/cheatengine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/minhaka/dev/myCheatEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cheatengine.dir/src/Scanner.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cheatengine.dir/src/Scanner.cpp.o -MF CMakeFiles/cheatengine.dir/src/Scanner.cpp.o.d -o CMakeFiles/cheatengine.dir/src/Scanner.cpp.o -c /home/minhaka/dev/myCheatEngine/src/Scanner.cpp
+
+CMakeFiles/cheatengine.dir/src/Scanner.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cheatengine.dir/src/Scanner.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/minhaka/dev/myCheatEngine/src/Scanner.cpp > CMakeFiles/cheatengine.dir/src/Scanner.cpp.i
+
+CMakeFiles/cheatengine.dir/src/Scanner.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cheatengine.dir/src/Scanner.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/minhaka/dev/myCheatEngine/src/Scanner.cpp -o CMakeFiles/cheatengine.dir/src/Scanner.cpp.s
+
 CMakeFiles/cheatengine.dir/src/main.cpp.o: CMakeFiles/cheatengine.dir/flags.make
 CMakeFiles/cheatengine.dir/src/main.cpp.o: /home/minhaka/dev/myCheatEngine/src/main.cpp
 CMakeFiles/cheatengine.dir/src/main.cpp.o: CMakeFiles/cheatengine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/minhaka/dev/myCheatEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cheatengine.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/minhaka/dev/myCheatEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cheatengine.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cheatengine.dir/src/main.cpp.o -MF CMakeFiles/cheatengine.dir/src/main.cpp.o.d -o CMakeFiles/cheatengine.dir/src/main.cpp.o -c /home/minhaka/dev/myCheatEngine/src/main.cpp
 
 CMakeFiles/cheatengine.dir/src/main.cpp.i: cmake_force
@@ -89,7 +103,7 @@ CMakeFiles/cheatengine.dir/src/main.cpp.s: cmake_force
 CMakeFiles/cheatengine.dir/src/process.cpp.o: CMakeFiles/cheatengine.dir/flags.make
 CMakeFiles/cheatengine.dir/src/process.cpp.o: /home/minhaka/dev/myCheatEngine/src/process.cpp
 CMakeFiles/cheatengine.dir/src/process.cpp.o: CMakeFiles/cheatengine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/minhaka/dev/myCheatEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cheatengine.dir/src/process.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/minhaka/dev/myCheatEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cheatengine.dir/src/process.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cheatengine.dir/src/process.cpp.o -MF CMakeFiles/cheatengine.dir/src/process.cpp.o.d -o CMakeFiles/cheatengine.dir/src/process.cpp.o -c /home/minhaka/dev/myCheatEngine/src/process.cpp
 
 CMakeFiles/cheatengine.dir/src/process.cpp.i: cmake_force
@@ -102,18 +116,20 @@ CMakeFiles/cheatengine.dir/src/process.cpp.s: cmake_force
 
 # Object files for target cheatengine
 cheatengine_OBJECTS = \
+"CMakeFiles/cheatengine.dir/src/Scanner.cpp.o" \
 "CMakeFiles/cheatengine.dir/src/main.cpp.o" \
 "CMakeFiles/cheatengine.dir/src/process.cpp.o"
 
 # External object files for target cheatengine
 cheatengine_EXTERNAL_OBJECTS =
 
+cheatengine: CMakeFiles/cheatengine.dir/src/Scanner.cpp.o
 cheatengine: CMakeFiles/cheatengine.dir/src/main.cpp.o
 cheatengine: CMakeFiles/cheatengine.dir/src/process.cpp.o
 cheatengine: CMakeFiles/cheatengine.dir/build.make
 cheatengine: CMakeFiles/cheatengine.dir/compiler_depend.ts
 cheatengine: CMakeFiles/cheatengine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/minhaka/dev/myCheatEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable cheatengine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/minhaka/dev/myCheatEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable cheatengine"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cheatengine.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

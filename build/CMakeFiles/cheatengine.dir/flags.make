@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/minhaka/dev/myCheatEngine/include
+CXX_INCLUDES = -I/home/minhaka/dev/myCheatEngine/src
 
 CXX_FLAGS = -g -std=gnu++23
 

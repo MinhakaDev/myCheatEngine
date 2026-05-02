@@ -1,13 +1,19 @@
 [
 {
   "directory": "/home/minhaka/dev/myCheatEngine/build",
-  "command": "/usr/bin/c++  -I/home/minhaka/dev/myCheatEngine/include -g -std=gnu++23 -o CMakeFiles/cheatengine.dir/src/main.cpp.o -c /home/minhaka/dev/myCheatEngine/src/main.cpp",
+  "command": "/usr/bin/c++  -I/home/minhaka/dev/myCheatEngine/src -g -std=gnu++23 -o CMakeFiles/cheatengine.dir/src/Scanner.cpp.o -c /home/minhaka/dev/myCheatEngine/src/Scanner.cpp",
+  "file": "/home/minhaka/dev/myCheatEngine/src/Scanner.cpp",
+  "output": "CMakeFiles/cheatengine.dir/src/Scanner.cpp.o"
+},
+{
+  "directory": "/home/minhaka/dev/myCheatEngine/build",
+  "command": "/usr/bin/c++  -I/home/minhaka/dev/myCheatEngine/src -g -std=gnu++23 -o CMakeFiles/cheatengine.dir/src/main.cpp.o -c /home/minhaka/dev/myCheatEngine/src/main.cpp",
   "file": "/home/minhaka/dev/myCheatEngine/src/main.cpp",
   "output": "CMakeFiles/cheatengine.dir/src/main.cpp.o"
 },
 {
   "directory": "/home/minhaka/dev/myCheatEngine/build",
-  "command": "/usr/bin/c++  -I/home/minhaka/dev/myCheatEngine/include -g -std=gnu++23 -o CMakeFiles/cheatengine.dir/src/process.cpp.o -c /home/minhaka/dev/myCheatEngine/src/process.cpp",
+  "command": "/usr/bin/c++  -I/home/minhaka/dev/myCheatEngine/src -g -std=gnu++23 -o CMakeFiles/cheatengine.dir/src/process.cpp.o -c /home/minhaka/dev/myCheatEngine/src/process.cpp",
   "file": "/home/minhaka/dev/myCheatEngine/src/process.cpp",
   "output": "CMakeFiles/cheatengine.dir/src/process.cpp.o"
 }

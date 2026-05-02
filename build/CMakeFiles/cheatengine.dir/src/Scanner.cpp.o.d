@@ -1,6 +1,7 @@
-CMakeFiles/cheatengine.dir/src/main.cpp.o: \
- /home/minhaka/dev/myCheatEngine/src/main.cpp /usr/include/stdc-predef.h \
- /home/minhaka/dev/myCheatEngine/src/process.h \
+CMakeFiles/cheatengine.dir/src/Scanner.cpp.o: \
+ /home/minhaka/dev/myCheatEngine/src/Scanner.cpp \
+ /usr/include/stdc-predef.h /home/minhaka/dev/myCheatEngine/src/Scanner.h \
+ /home/minhaka/dev/myCheatEngine/src/./process.h \
  /usr/include/c++/15.2.1/cstdint \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -223,4 +224,4 @@ CMakeFiles/cheatengine.dir/src/main.cpp.o: \
  /usr/include/bits/openat2.h /usr/include/bits/stat.h \
  /usr/include/bits/struct_stat.h /usr/include/c++/15.2.1/print \
  /usr/include/c++/15.2.1/cstring /usr/include/string.h \
- /usr/include/strings.h /home/minhaka/dev/myCheatEngine/src/Scanner.h
+ /usr/include/strings.h

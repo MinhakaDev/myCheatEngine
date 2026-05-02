@@ -13,7 +13,7 @@ add_executable(cheatengine
 	${SOURCES}
 )
 
-target_include_directories(cheatengine PRIVATE include)
+target_include_directories(cheatengine PRIVATE src)
 
 # Link capstone if you add disassembly later
 # target_link_libraries(cheatengine capstone)

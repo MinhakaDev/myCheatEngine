@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/minhaka/dev/myCheatEngine/src/Scanner.cpp" "CMakeFiles/cheatengine.dir/src/Scanner.cpp.o" "gcc" "CMakeFiles/cheatengine.dir/src/Scanner.cpp.o.d"
   "/home/minhaka/dev/myCheatEngine/src/main.cpp" "CMakeFiles/cheatengine.dir/src/main.cpp.o" "gcc" "CMakeFiles/cheatengine.dir/src/main.cpp.o.d"
   "/home/minhaka/dev/myCheatEngine/src/process.cpp" "CMakeFiles/cheatengine.dir/src/process.cpp.o" "gcc" "CMakeFiles/cheatengine.dir/src/process.cpp.o.d"
   "" "cheatengine" "gcc" "CMakeFiles/cheatengine.dir/link.d"
