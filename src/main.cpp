@@ -9,20 +9,26 @@
 int main()
 {
 	Scanner sc;
-	int value = 10;
-	int novalue = 9;
+	float value = 3.14;
+	std::cin >> value;
 	if (sc.newExact(value))
 	{
 		std::println("run");
 		while (value != 0) 
 		{
 			std::cin >> value;
+			if (value == 0)
+			{
+				break;
+			}
 			if (!sc.exactValue(value)) 
 			{
 				return -2;
 			}
-			sc.printScan(novalue);
+			std::println("");
+			sc.printScan(value);
 		}
 
 	}
+	sc.write(0, value);
 }

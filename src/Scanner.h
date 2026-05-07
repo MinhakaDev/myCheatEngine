@@ -25,7 +25,6 @@ class Scanner
 	public:
 	Scanner();
 	
-	bool newScan();
 	template <typename T>
 	bool exactValue(T target)
 	{
@@ -78,6 +77,18 @@ class Scanner
 		}
 		return true;
 	}
+
+
+	template <typename T>
+	void write(int index, T value)
+	{
+		std::vector<uint8_t> data(sizeof(T));
+		std::memcpy(data.data(), &value, sizeof(T));
+		Scanner::proc.attatch();
+		proc.writeMemory(Scanner::memoryAddrList[index], data);
+		Scanner::proc.detatch();
+	}
+
 	template <typename T>
 	void printScan(T target)
 	{
@@ -93,6 +104,7 @@ class Scanner
 
 	}
 
+	bool newScan();
 	std::vector<uintptr_t> getMemoryAddrList();
 };
 
