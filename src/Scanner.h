@@ -25,34 +25,9 @@ class Scanner
 	public:
 	Scanner();
 	
-	template <typename T>
-	bool exactValue(T target)
-	{
-		T tempValue = target;
-		std::vector<uintptr_t> newMemoryAddrList;
-		if(!Scanner::newScan())
-		{
-			std::println("error 2");
-			return false;
-		}
-		Scanner::proc.attatch();
-		for (int i = 0; Scanner::memoryAddrList.size() > i; i++) 
-		{
-			std::vector<uint8_t> value = Scanner::proc.readMemory(Scanner::memoryAddrList[i], sizeof(target));
 
-			std::memcpy(&target,value.data(), sizeof(target));
-			if (tempValue == target) 
-			{
-				newMemoryAddrList.push_back(Scanner::memoryAddrList[i]);
-			}
-		}
-		Scanner::proc.detatch();
-		Scanner::memoryAddrList = newMemoryAddrList;
-		return true;
-
-	}
 	template <typename T>
-	bool newExact(T target)
+	bool scanExact(T target)
 	{
 		T tempValue = target;
 		if (!Scanner::newScan()) 
@@ -78,6 +53,31 @@ class Scanner
 		return true;
 	}
 
+	template <typename T>
+	bool rescanExact(T target)
+	{
+		T tempValue = target;
+		std::vector<uintptr_t> newMemoryAddrList;
+		if(!Scanner::newScan())
+		{
+			std::println("error 2");
+			return false;
+		}
+		Scanner::proc.attatch();
+		for (int i = 0; Scanner::memoryAddrList.size() > i; i++) 
+		{
+			std::vector<uint8_t> value = Scanner::proc.readMemory(Scanner::memoryAddrList[i], sizeof(target));
+
+			std::memcpy(&target,value.data(), sizeof(target));
+			if (tempValue == target) 
+			{
+				newMemoryAddrList.push_back(Scanner::memoryAddrList[i]);
+			}
+		}
+		Scanner::proc.detatch();
+		Scanner::memoryAddrList = newMemoryAddrList;
+		return true;
+}
 
 	template <typename T>
 	void write(int index, T value)
