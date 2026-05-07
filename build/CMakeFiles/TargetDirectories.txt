@@ -1,3 +1,0 @@
-/home/minhaka/dev/myCheatEngine/build/CMakeFiles/cheatengine.dir
-/home/minhaka/dev/myCheatEngine/build/CMakeFiles/edit_cache.dir
-/home/minhaka/dev/myCheatEngine/build/CMakeFiles/rebuild_cache.dir

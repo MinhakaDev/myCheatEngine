@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/cheatengine.dir/link.d CMakeFiles/cheatengine.dir/src/Scanner.cpp.o CMakeFiles/cheatengine.dir/src/main.cpp.o CMakeFiles/cheatengine.dir/src/process.cpp.o -o cheatengine

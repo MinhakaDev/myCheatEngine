@@ -25,3 +25,7 @@ bool Scanner::newScan()
 	return true;
 }
 
+std::vector<uintptr_t> Scanner::getMemoryAddrList()
+{
+	return Scanner::memoryAddrList;
+}

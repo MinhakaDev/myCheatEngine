@@ -2,6 +2,7 @@
 #include "./process.h"
 #include <cstdint>
 #include <cstring>
+#include <fstream>
 #include <vector>
 #include <iostream>
 #include <print>
@@ -20,14 +21,39 @@ class Scanner
 	private:
 		Process proc;
 		std::vector<MemorySnapshot> memorySnapshot;
+		std::vector<uintptr_t> memoryAddrList;
 	public:
 	Scanner();
 	
 	bool newScan();
 	template <typename T>
-	bool greaterScan(T target);
+	bool exactValue(T target)
+	{
+		T tempValue = target;
+		std::vector<uintptr_t> newMemoryAddrList;
+		if(!Scanner::newScan())
+		{
+			std::println("error 2");
+			return false;
+		}
+		Scanner::proc.attatch();
+		for (int i = 0; Scanner::memoryAddrList.size() > i; i++) 
+		{
+			std::vector<uint8_t> value = Scanner::proc.readMemory(Scanner::memoryAddrList[i], sizeof(target));
+
+			std::memcpy(&target,value.data(), sizeof(target));
+			if (tempValue == target) 
+			{
+				newMemoryAddrList.push_back(Scanner::memoryAddrList[i]);
+			}
+		}
+		Scanner::proc.detatch();
+		Scanner::memoryAddrList = newMemoryAddrList;
+		return true;
+
+	}
 	template <typename T>
-	bool exactScan(T target)
+	bool newExact(T target)
 	{
 		T tempValue = target;
 		if (!Scanner::newScan()) 
@@ -36,6 +62,7 @@ class Scanner
 			return false;
 		}
 		std::vector<MemorySnapshot> snapshotBefore = Scanner::memorySnapshot;
+		
 		for (int i = 0; snapshotBefore.size() > i ; i++)
 		{
 			for (int j = 0; snapshotBefore[i].bytes.size() > j; j++) 
@@ -44,7 +71,7 @@ class Scanner
 				uintptr_t memoryAddr = snapshotBefore[i].start + j;
 				if (tempValue == target) 
 				{
-					std::println("\n Memory Readed: {} at Addr = {}",target,memoryAddr);
+					Scanner::memoryAddrList.push_back(memoryAddr);
 				}
 			}
 		
@@ -55,16 +82,18 @@ class Scanner
 	void printScan(T target)
 	{
 		T value = target;
-		for (int j = 0; memorySnapshot.size() > j; j++) {
-		
-			for (int i = 0; memorySnapshot[j].bytes.size() > i; i++) 
-			{
-				std::memcpy(&target, memorySnapshot[j].bytes.data(),sizeof(target));
-				uintptr_t memoryAddr = memorySnapshot[j].start + i;
-				std::print("\n {}		{}",memoryAddr,target);
-			}
+		Scanner::proc.attatch();
+		for (int i = 0; Scanner::memoryAddrList.size() > i; i++) 
+		{
+			std::vector<uint8_t> value = Scanner::proc.readMemory(Scanner::memoryAddrList[i], sizeof(target));
+			std::memcpy(&target,value.data(), sizeof(target));
+			std::print("\n [{}] {}		{}",i,Scanner::memoryAddrList[i],target);
 		}
+		Scanner::proc.detatch();
+
 	}
+
+	std::vector<uintptr_t> getMemoryAddrList();
 };
 
 
