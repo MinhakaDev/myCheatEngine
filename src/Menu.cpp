@@ -49,7 +49,6 @@ void Menu::renderResults()
 
         if (ImGui::BeginPopup("edit_value"))
         {
-	    editInput[0] = '\0';  // clear the buffer
             ImGui::InputText("New Value", editInput, sizeof(editInput));
             if (ImGui::Button("Write"))
             {

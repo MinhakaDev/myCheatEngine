@@ -22,6 +22,8 @@ class Scanner
 		Process proc;
 		std::vector<MemorySnapshot> memorySnapshot;
 		std::vector<uintptr_t> memoryAddrList;
+		template<typename T>
+		static T valueBefore;
 	public:
 	Scanner();
 	
@@ -68,6 +70,7 @@ class Scanner
 			}
 		}
 		Scanner::proc.detatch();
+		valueBefore<T> = tempValue;
 		Scanner::memoryAddrList = newMemoryAddrList;
 		return true;
 	}
@@ -75,38 +78,56 @@ class Scanner
 	template<typename T>
 	bool rescanGreater(T target)
 	{
-		T tempValue = target;
 		std::vector<uintptr_t> newMemoryAddrList;
-		if(!newScan())
-		{
-			std::println("error 3");
-			return false;
-		}
 		Scanner::proc.attatch();
 		for (int i = 0; Scanner::memoryAddrList.size() > i; i++) 
 		{
-			std::vector<uint8_t> value = Scanner::proc.readMemory(Scanner::memoryAddrList[i], sizeof(target));
-
-			std::memcpy(&target,value.data(), sizeof(target));
-			if (target > tempValue) 
+			T value = readValue<T>(memoryAddrList[i]);
+			if (target > value) 
 			{
 				newMemoryAddrList.push_back(Scanner::memoryAddrList[i]);
 			}
 		}
-		proc.detatch();
+		Scanner::proc.detatch();
+		valueBefore<T> = target;
 		memoryAddrList = newMemoryAddrList;
 		return true;
 	}
 	template<typename T>
 
-	bool rescanLower()
+	bool rescanLower(T target)
 	{
+		std::vector<uintptr_t> newMemoryAddrList;
+		Scanner::proc.attatch();
+		for (int i = 0; Scanner::memoryAddrList.size() > i; i++) 
+		{
+			T value = readValue<T>(memoryAddrList[i]);
+			if (target < value) 
+			{
+				newMemoryAddrList.push_back(Scanner::memoryAddrList[i]);
+			}
+		}
+		Scanner::proc.detatch();
+		valueBefore<T> = target;
+		memoryAddrList = newMemoryAddrList;
 		return true;
 	}
-	template<typename T>
 
+	template<typename T>
 	bool rescanSame()
 	{
+		std::vector<uintptr_t> newMemoryAddrList;
+		Scanner::proc.attatch();
+		for (int i = 0; Scanner::memoryAddrList.size() > i; i++) 
+		{
+			T value = readValue<T>(memoryAddrList[i]);
+			if (valueBefore<T> == value) 
+			{
+				newMemoryAddrList.push_back(Scanner::memoryAddrList[i]);
+			}
+		}
+		Scanner::proc.detatch();
+		memoryAddrList = newMemoryAddrList;
 		return true;
 	}
 
