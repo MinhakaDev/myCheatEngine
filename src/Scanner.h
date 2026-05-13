@@ -58,9 +58,28 @@ class Scanner
 	{
 		T tempValue = target;
 		std::vector<uintptr_t> newMemoryAddrList;
-		if(!Scanner::newScan())
+		Scanner::proc.attatch();
+		for (int i = 0; Scanner::memoryAddrList.size() > i; i++) 
 		{
-			std::println("error 2");
+			T value = readValue<T>(memoryAddrList[i]);
+			if (tempValue == value) 
+			{
+				newMemoryAddrList.push_back(Scanner::memoryAddrList[i]);
+			}
+		}
+		Scanner::proc.detatch();
+		Scanner::memoryAddrList = newMemoryAddrList;
+		return true;
+	}
+	
+	template<typename T>
+	bool rescanGreater(T target)
+	{
+		T tempValue = target;
+		std::vector<uintptr_t> newMemoryAddrList;
+		if(!newScan())
+		{
+			std::println("error 3");
 			return false;
 		}
 		Scanner::proc.attatch();
@@ -69,15 +88,27 @@ class Scanner
 			std::vector<uint8_t> value = Scanner::proc.readMemory(Scanner::memoryAddrList[i], sizeof(target));
 
 			std::memcpy(&target,value.data(), sizeof(target));
-			if (tempValue == target) 
+			if (target > tempValue) 
 			{
 				newMemoryAddrList.push_back(Scanner::memoryAddrList[i]);
 			}
 		}
-		Scanner::proc.detatch();
-		Scanner::memoryAddrList = newMemoryAddrList;
+		proc.detatch();
+		memoryAddrList = newMemoryAddrList;
 		return true;
-}
+	}
+	template<typename T>
+
+	bool rescanLower()
+	{
+		return true;
+	}
+	template<typename T>
+
+	bool rescanSame()
+	{
+		return true;
+	}
 
 	template <typename T>
 	void write(int index, T value)
@@ -110,6 +141,14 @@ class Scanner
 		Scanner::proc.attatch();
 		std::vector<uint8_t> value = Scanner::proc.readMemory(memoryAddr, sizeof(T));
 		Scanner::proc.detatch();
+		std::memcpy(&target,value.data(),sizeof(target));
+		return target;
+	}
+	template <typename T>
+	T readValue(uintptr_t memoryAddr)
+	{
+		T target;
+		std::vector<uint8_t> value = Scanner::proc.readMemory(memoryAddr, sizeof(T));
 		std::memcpy(&target,value.data(),sizeof(target));
 		return target;
 	}
