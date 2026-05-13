@@ -103,6 +103,16 @@ class Scanner
 		Scanner::proc.detatch();
 
 	}
+	template <typename T>
+	T getMemoryValue(uintptr_t memoryAddr)
+	{
+		T target;
+		Scanner::proc.attatch();
+		std::vector<uint8_t> value = Scanner::proc.readMemory(memoryAddr, sizeof(T));
+		Scanner::proc.detatch();
+		std::memcpy(&target,value.data(),sizeof(target));
+		return target;
+	}
 
 	bool newScan();
 	std::vector<uintptr_t> getMemoryAddrList();
