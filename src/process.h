@@ -25,10 +25,14 @@ class Process
 	private:
 		int pid;
 		int mem_fd;
+		std::vector<std::string> processNames;
 	public:
 	std::vector<MemoryRegion> regions;
 
 	Process();
+	void getAllNames();
+	std::vector<std::string> getProcessNames();
+
 	int getId(std::string name);
 
 	bool parceMaps();
@@ -38,6 +42,5 @@ class Process
 	void attatch();
 	void detatch();
 
-	void getAllNames();
 
 };

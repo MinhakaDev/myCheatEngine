@@ -2,6 +2,7 @@
 #include "ErrorReporter.h"
 #include <cstddef>
 #include <cstdint>
+#include <print>
 #include <sstream>
 #include <string>
 #include <sys/ptrace.h>
@@ -14,16 +15,23 @@
 Process::Process()
 {
 	getAllNames();
-	std::println("Please Give me the name of the process to connect: ");
-	std::string name;
-	std::cin >> name;
-	getId(name);
-	if (Process::pid < 0 ) 
+	while (true)
 	{
-		ErrorReporter::error("There is no process with this name");
+		std::println("Please Give me the name of the process to connect: ");
+		for (int i = 0; i < processNames.size();i++)
+		{
+			std::println("{}",processNames[i]);
+		}
+		std::string name;
+		std::cin >> name;
+		getId(name);
+		if (Process::pid < 0 ) 
+		{
+			ErrorReporter::error("There is no process with this name");
+			continue;
+		}
+		std::println("connected to the process {} with pid {}", name, Process::pid);
 	}
-	std::println("connected to the process {} with pid {}", name, Process::pid);
-
 }
 
 // retrun all current process names
@@ -32,19 +40,18 @@ void Process::getAllNames()
 	std::string path = "/proc/";
 	for (const auto& proc : std::filesystem::directory_iterator(path)) 
 	{
-		if (proc.is_directory()) {
-			for(const auto& entry : std::filesystem::directory_iterator(proc.path()))
-			{
-				if (entry.path().filename() == "comm") {
-					std::ifstream file(entry.path());
-					if (file.is_open()) {
-						std::string name;
-						if (std::getline(file, name)) {
-							file.close();
-							std::cout << name + "\n";
-						}
-					}
-				}
+		if (!proc.is_directory()) continue;
+		for(const auto& entry : std::filesystem::directory_iterator(proc.path()))
+		{
+			if (entry.path().filename() != "comm") continue;
+			std::ifstream file(entry.path());
+			if (!file.is_open()) continue;
+			std::string name;
+			if (std::getline(file, name)) {
+				file.close();
+				processNames.push_back(name);
+
+			
 			}
 		}
 
@@ -52,32 +59,34 @@ void Process::getAllNames()
 
 }
 
+std::vector<std::string> Process::getProcessNames()
+{
+	return processNames;
+}
+
 int Process::getId(std::string procName)
 {
 	std::string path = "/proc/";
 	for (const auto& proc : std::filesystem::directory_iterator(path)) 
 	{
-		if (proc.is_directory()) {
-			for(const auto& entry : std::filesystem::directory_iterator(proc.path()))
-			{
-				if (entry.path().filename() == "comm") {
-					std::ifstream file(entry.path());
-					if (file.is_open()) {
-						std::string name;
-						if (std::getline(file, name)) {
-							file.close();
-							if (name == procName) {
-								int procId = std::stoi(proc.path().filename().string());
-								Process::pid = procId;
-								return procId;
-							}
-						}
-					}
-				}
+		if (!proc.is_directory()) continue; 
+		for(const auto& entry : std::filesystem::directory_iterator(proc.path()))
+		{
+			if (entry.path().filename() != "comm") continue; 
+			std::ifstream file(entry.path());
+			if (!file.is_open()) continue;
+			std::string name;
+			if (std::getline(file, name)) {
+				file.close();
+				if (name != procName) continue;
+				int procId = std::stoi(proc.path().filename().string());
+				Process::pid = procId;
+				return procId;
 			}
 		}
 
 	}
+	Process::pid = -1;
 	return 0;
 }
 
@@ -88,26 +97,29 @@ bool Process::parceMaps()
 	std::string path = "/proc/" + std::to_string(pid) + "/maps";
 	std::ifstream file(path);
 	Process::regions.clear();
-	if (file.is_open()) {
-		std::string line;
-		while(std::getline(file, line)) {
-			std::istringstream ss(line);
-			std::string range;
-			std::string perms;
-			ss >> range >> perms;
-			if (perms.contains("w")) {
-				size_t pos = range.find("-");
-				std::string start = range.substr(0 , pos);
-				std::string end = range.substr(pos +1);
-				MemoryRegion memory;
-				memory.start = std::stoull(start, nullptr, 16);;
-				memory.end = std::stoull(end, nullptr, 16);
-				Process::regions.push_back(memory);
-				
-			}
-		
-		}
+	if (!file.is_open()) 
+	{
+		return false;
 	}
+	std::string line;
+	while(std::getline(file, line)) {
+		std::istringstream ss(line);
+		std::string range;
+		std::string perms;
+		ss >> range >> perms;
+		if (perms.contains("w")) {
+			size_t pos = range.find("-");
+			std::string start = range.substr(0 , pos);
+			std::string end = range.substr(pos +1);
+			MemoryRegion memory;
+			memory.start = std::stoull(start, nullptr, 16);;
+			memory.end = std::stoull(end, nullptr, 16);
+			Process::regions.push_back(memory);
+
+		}
+
+	}
+
 	return true;
 
 }
