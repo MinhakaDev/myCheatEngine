@@ -1,5 +1,6 @@
 #pragma once
 #include "./process.h"
+#include <any>
 #include <cstdint>
 #include <cstring>
 #include <fstream>
@@ -22,8 +23,7 @@ class Scanner
 		Process proc;
 		std::vector<MemorySnapshot> memorySnapshot;
 		std::vector<uintptr_t> memoryAddrList;
-		template<typename T>
-		static T valueBefore;
+		std::any valueBefore;
 	public:
 	Scanner();
 	
@@ -70,7 +70,7 @@ class Scanner
 			}
 		}
 		Scanner::proc.detatch();
-		valueBefore<T> = tempValue;
+		valueBefore = tempValue;
 		Scanner::memoryAddrList = newMemoryAddrList;
 		return true;
 	}
@@ -89,7 +89,7 @@ class Scanner
 			}
 		}
 		Scanner::proc.detatch();
-		valueBefore<T> = target;
+		valueBefore = target;
 		memoryAddrList = newMemoryAddrList;
 		return true;
 	}
@@ -108,7 +108,7 @@ class Scanner
 			}
 		}
 		Scanner::proc.detatch();
-		valueBefore<T> = target;
+		valueBefore = target;
 		memoryAddrList = newMemoryAddrList;
 		return true;
 	}
@@ -121,7 +121,7 @@ class Scanner
 		for (int i = 0; Scanner::memoryAddrList.size() > i; i++) 
 		{
 			T value = readValue<T>(memoryAddrList[i]);
-			if (valueBefore<T> == value) 
+			if (valueBefore == value) 
 			{
 				newMemoryAddrList.push_back(Scanner::memoryAddrList[i]);
 			}

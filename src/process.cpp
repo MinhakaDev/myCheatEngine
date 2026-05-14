@@ -1,4 +1,5 @@
 #include "./process.h"
+#include "ErrorReporter.h"
 #include <cstddef>
 #include <cstdint>
 #include <sstream>
@@ -17,7 +18,11 @@ Process::Process()
 	std::string name;
 	std::cin >> name;
 	getId(name);
-	std::print("connected to the process {} with pid {}", name, Process::pid);
+	if (Process::pid < 0 ) 
+	{
+		ErrorReporter::error("There is no process with this name");
+	}
+	std::println("connected to the process {} with pid {}", name, Process::pid);
 
 }
 
@@ -108,21 +113,19 @@ bool Process::parceMaps()
 }
 
 // attatch to the process so i can read from it syscall
-bool Process::attatch()
+void Process::attatch()
 {
 	ptrace(PTRACE_ATTACH,pid,nullptr,nullptr);
 	int status;
 	waitpid(pid, &status , 0);
 	Process::mem_fd = open(("/proc/" + std::to_string(pid) + "/mem").c_str(), O_RDWR);
-	return true;
 }
 
 // detatch from the process to resume it
-bool Process::detatch()
+void Process::detatch()
 {
 	ptrace(PTRACE_DETACH,pid,nullptr,nullptr);
 	close(Process::mem_fd);
-	return true;
 }
 
 // reads from a memoryAddr of until it complete its size

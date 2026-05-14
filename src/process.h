@@ -12,6 +12,7 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <print>
+#include "ErrorReporter.h"
 
 struct MemoryRegion
 {
@@ -34,8 +35,8 @@ class Process
 	std::vector<uint8_t> readMemory(uintptr_t memoryAddr, size_t size);
 	bool writeMemory(uintptr_t memoryAddr,const std::vector<uint8_t>& buffer);
 
-	bool attatch();
-	bool detatch();
+	void attatch();
+	void detatch();
 
 	void getAllNames();
 
