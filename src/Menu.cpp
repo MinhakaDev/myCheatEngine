@@ -101,7 +101,7 @@ bool Menu::update()
 		try {
 			std::println("button scan clicked");
 			switch (selectedType) {
-				case 0: sc.scanExact<int32_t>(std::stoi(searchInput)); break;
+				case 0: sc.scanUnknown<int32_t>(); break;
 				case 1: sc.scanExact<int64_t>(std::stoll(searchInput)); break;
 				case 2: sc.scanExact<float>(std::stof(searchInput)); break;
 			}

@@ -54,13 +54,36 @@ class Scanner
 		}
 		return true;
 	}
+	template<typename T>
+	void scanUnknown()
+	{
+		{
+			T tempValue;
+			if (!Scanner::newScan()) 
+			{
+				std::println("error 1");
+			}
+			std::vector<MemorySnapshot> snapshotBefore = Scanner::memorySnapshot;
+
+			for (int i = 0; snapshotBefore.size() > i ; i++)
+			{
+				for (int j = 0; snapshotBefore[i].bytes.size() > j; j++) 
+				{
+					std::memcpy(&tempValue, snapshotBefore[i].bytes.data() + j,sizeof(tempValue));
+					uintptr_t memoryAddr = snapshotBefore[i].start + j;
+					Scanner::memoryAddrList.push_back(memoryAddr);
+				}
+
+			}
+		}
+	}
 
 	template <typename T>
-	bool rescanExact(T target)
-	{
-		T tempValue = target;
-		std::vector<uintptr_t> newMemoryAddrList;
-		Scanner::proc.attatch();
+		bool rescanExact(T target)
+		{
+			T tempValue = target;
+			std::vector<uintptr_t> newMemoryAddrList;
+			Scanner::proc.attatch();
 		for (int i = 0; Scanner::memoryAddrList.size() > i; i++) 
 		{
 			T value = readValue<T>(memoryAddrList[i]);

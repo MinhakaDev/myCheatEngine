@@ -25,12 +25,13 @@ Process::Process()
 		std::string name;
 		std::cin >> name;
 		getId(name);
-		if (Process::pid < 0 ) 
+		if (Process::pid > 0 ) 
 		{
-			ErrorReporter::error("There is no process with this name");
-			continue;
+			std::println("connected to the process {} with pid {}", name, Process::pid);
+			break;
 		}
-		std::println("connected to the process {} with pid {}", name, Process::pid);
+		ErrorReporter::error("There is no process with this name");
+		continue;
 	}
 }
 
@@ -100,8 +101,7 @@ bool Process::parceMaps()
 	if (!file.is_open()) 
 	{
 		return false;
-	}
-	std::string line;
+	} std::string line;
 	while(std::getline(file, line)) {
 		std::istringstream ss(line);
 		std::string range;
